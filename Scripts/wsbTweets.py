@@ -4,19 +4,20 @@ import itertools
 
 from pprint import pprint
 data = []
-with open('tweets.json') as data_file:
+with open('Data/tweets.json') as data_file:
     for line in data_file:
-        print line
-        data.append(line)
-        json_object = json.loads(json.dumps(data))
-        for tItem in json_object.itervalues():
-            print tItem # example usage
+        json_object = json.loads(line)
+        data.append(json_object)
 
-        break
-#        mydata = {  'name': ret['user']['screen_name'],
-#                    'text': ret['text']}
-#        print mydata['name'], 'wrote', mydata['text'] # or something
-
+for jobj in data:
+    #w print json.dumps(jobj)
+#    for user in jobj.iteritems():
+#        print user['screen_name']
+    print '----------------------------'
+    mydata = {  'name': jobj['user']['screen_name'],
+                'text': jobj['text']}
+    print mydata['name'], 'wrote', mydata['text'] # or something
+    break
 #	pprint(dat_json)
 
 #    for line_str in f:
