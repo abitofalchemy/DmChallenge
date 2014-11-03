@@ -16,17 +16,17 @@ next_cursor=-1
 df = pd.DataFrame(columns=['screen_name'])
 inx = 0
 while(next_cursor):
-	search = twitter.get_followers_list(screen_name='WSBT',count=200,cursor=next_cursor)
+	search = twitter.get_followers_list(screen_name='SBTribune',count=200,cursor=next_cursor)
 	for result in search['users']:
         #time_zone =result['time_zone'] if result['time_zone'] != None else "N/A"
-		print result["screen_name"].encode('utf-8')
+		#print result["screen_name"].encode('utf-8')
 		df.loc[inx]= result["screen_name"].encode('utf-8')
 		inx +=1
 	next_cursor = search["next_cursor"]
 	time.sleep(60)
 	print 'inx:', inx
 print df.head()
-df.to_csv('wsbt_out.txt', sep=',',mode='w',encoding='utf-8',index=False)
+df.to_csv('out_file.txt', sep=',',mode='w',encoding='utf-8',index=False)
 #print(twitter.get_followers_list()['ids'])
 
 
