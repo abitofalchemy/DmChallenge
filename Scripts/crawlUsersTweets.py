@@ -1,3 +1,5 @@
+## http://stackoverflow.com/questions/17245415/read-and-write-csv-files-including-unicode-with-python-2-7
+
 import json
 import pandas as pd
 import itertools
@@ -6,6 +8,8 @@ import time
 import csv
 import pandas as pd
 import pprint
+from twython import TwythonAuthError
+
 
 APP_KEY     = CONSUMER_KEY = 'knDYepbodjYllFB52VkVXnvJh'
 APP_SECRET  = CONSUMER_SECRET = 'e14U476NypS6rcLOuIZptd1GqcYMieuvFOlZeoaxVLnmTRBzXV'
@@ -14,6 +18,8 @@ OAUTH_TOKEN_SECRET = '8Tgmu7lBl781DRccVMcjzyCBVwhJB2AQpvTAggVIafzDK'
 
 twitter = Twython(APP_KEY, APP_SECRET,
                   OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
+
+
 
 """
 # define user to get tweets for. accepts input from user
@@ -34,16 +40,25 @@ for tweet in user_timeline:
 """
 def tweets_by(screen_names_file):
     ## Set output file
-    outputFile = 'tweets_by_followes.txt'
-
+    outputFile = 'Data/followersTweets_SBTribune.txt'
+    fout  = open(outputFile,'w')
     with open(screen_names_file, 'rb') as inputFile:
+        
         for scrnName in inputFile:
-            user_timeline = twitter.get_user_timeline(screen_name=scrnName, count=10)
-    #        print json.dumps(user_timeline, indent=2)
+            print '>', scrnName
+            try:
+                user_timeline = twitter.get_user_timeline(screen_name=scrnName, count=10)
+            except TwythonAuthError:
+                continue
             if user_timeline is not None:
                 for tweet in user_timeline:
-                    print '%s, %s, %s, %s, %s, %s, %s' % (tweet['created_at'],tweet['user']['screen_name'],tweet['user']['id'], tweet['text'],tweet['entities']['hashtags'], tweet['retweet_count'],tweet['favorite_count'])
-            break
+#                    print '%s, %s, %s, %s, %s, %s, %s' % (tweet['created_at'],tweet['user']['screen_name'],tweet['user']['id'], tweet['text'],tweet['entities']['hashtags'], tweet['retweet_count'],tweet['favorite_count'])
+                    csv.writer(fout).writerow([tweet['created_at'],tweet['user']['screen_name'], \
+                                            tweet['user']['id'], u"tweet['text']", \
+                                            tweet['entities']['hashtags'], \
+                                            tweet['retweet_count'],tweet['favorite_count']])
+
+
     return
 """
     Trends near south bend
@@ -61,5 +76,6 @@ def trendind_near_south_bend():
 ##  main
 ###############################################################
 if __name__ == "__main__":
-    tweets_by('Data/wsbt_all_followers_screen_names.txt')
+    #tweets_by('Data/wsbt_all_followers_screen_names.txt')
+    tweets_by('Data/sbtribune_all_followers_screen_names.txt')
 

@@ -1,0 +1,65 @@
+Sun Nov 02 09:14:16 +0000 2014,PeggsRenee,1800277825,tweet['text'],[],1905,0
+Sun Nov 02 11:05:05 +0000 2014,rica030493,2856262342,tweet['text'],[],0,0
+Sat Nov 01 20:13:16 +0000 2014,MarkWino,2345503362,tweet['text'],[],0,0
+Tue Nov 04 20:31:06 +0000 2014,SpaceWeather101,455425961,tweet['text'],[],1,0
+Sun Nov 02 02:39:39 +0000 2014,vvarilyn,2256652172,tweet['text'],[],0,1
+Tue Nov 04 17:59:33 +0000 2014,DanielleWaldron,184909082,tweet['text'],"[{u'indices': [6, 18], u'text': u'ElectionDay'}]",0,0
+Tue Nov 04 02:25:43 +0000 2014,emilybreannn,537317998,tweet['text'],[],0,1
+Tue Nov 04 04:27:27 +0000 2014,jodyruch1,2871095568,tweet['text'],[],534,0
+Sun Nov 02 01:54:21 +0000 2014,LydiaEMiller1,2886803454,tweet['text'],[],0,0
+Sun Nov 02 01:13:31 +0000 2014,JasperSezWut,2855922514,tweet['text'],[],0,0
+Sun Nov 02 00:30:12 +0000 2014,amj123,34026241,tweet['text'],[],0,1
+Tue Nov 04 01:23:21 +0000 2014,SMGratton,2855865424,tweet['text'],"[{u'indices': [52, 63], u'text': u'AmazonCart'}]",0,0
+Wed Nov 20 19:56:45 +0000 2013,Karma_jackson,226999760,tweet['text'],"[{u'indices': [108, 116], u'text': u'Android'}, {u'indices': [117, 129], u'text': u'GameInsight'}, {u'indices': [130, 139], u'text': u'AndroidG'}]",0,0
+Tue Nov 04 20:50:34 +0000 2014,Garrett_Kramer,1183774453,tweet['text'],[],0,0
+Wed Sep 10 13:56:02 +0000 2014,Ralphb43,185636996,tweet['text'],[],0,0
+Tue Nov 04 19:02:52 +0000 2014,Jenny_606,2339425003,tweet['text'],[],1,0
+Mon Nov 03 23:17:42 +0000 2014,divadiddat1,2855637957,tweet['text'],[],1,0
+Tue Oct 28 23:37:36 +0000 2014,aarock21,434416778,tweet['text'],"[{u'indices': [93, 114], u'text': u'EveryoneNowOverreact'}]",31,0
+Tue Nov 04 16:10:53 +0000 2014,____PrincessJay,2886529562,tweet['text'],[],0,0
+Sat Nov 01 19:58:31 +0000 2014,tyronej19279515,2855502838,tweet['text'],[],0,0
+Wed Oct 15 21:19:14 +0000 2014,Gubgub125,2241824791,tweet['text'],[],16,0
+Sun Nov 02 20:36:10 +0000 2014,jenny_wargo,1893768462,tweet['text'],[],0,2
+Sun Nov 02 17:24:59 +0000 2014,CloutGod0,2886682933,tweet['text'],[],0,0
+Sat Nov 01 15:46:48 +0000 2014,DonnaXdonnax,2291733542,tweet['text'],[],0,0
+Tue Nov 04 21:02:26 +0000 2014,kaylee_cozette,2855308421,tweet['text'],"[{u'indices': [50, 70], u'text': u'JakeMillerLionHeart'}]",0,0
+Tue Nov 04 03:12:32 +0000 2014,jomeiser,2382511952,tweet['text'],[],0,0
+Tue Nov 04 21:06:17 +0000 2014,Katie08552,2886525066,tweet['text'],[],1,0
+Sat Nov 01 19:16:14 +0000 2014,COOLDOUGLASRAY3,2855151303,tweet['text'],[],0,0
+Sun Nov 02 02:20:31 +0000 2014,BrookePetty12,2855164589,tweet['text'],[],0,0
+Tue Nov 04 19:07:04 +0000 2014,BoomMichiana,2325964830,tweet['text'],[],0,0
+Mon Nov 03 21:43:35 +0000 2014,WinterSawBuck,2886471146,tweet['text'],[],0,0
+Tue Nov 04 03:09:55 +0000 2014,katianalicia,1578829400,tweet['text'],[],0,0
+Sun Nov 02 19:32:38 +0000 2014,loop_william,2855080247,tweet['text'],[],0,0
+Sat Nov 01 14:24:01 +0000 2014,SmithPiglet,2886349548,tweet['text'],[],0,0
+Wed May 28 05:14:37 +0000 2014,neva_lookin_bak,169156087,tweet['text'],[],54,0
+Tue Oct 07 00:28:27 +0000 2014,john46580,1036175660,tweet['text'],[],47,0
+Mon Oct 20 01:41:13 +0000 2014,troyhill303,2764304777,tweet['text'],[],0,0
+Sun Nov 02 16:46:52 +0000 2014,FdotMarley,2581664022,tweet['text'],"[{u'indices': [41, 60], u'text': u'bitchimreal2myself'}, {u'indices': [61, 90], u'text': u'faaaawwwwwwwwkkkkkkkkyoumean'}]",0,1
+Tue Nov 04 15:33:14 +0000 2014,karthick3130,2854317904,tweet['text'],"[{u'indices': [15, 23], u'text': u'Kaththi'}, {u'indices': [105, 129], u'text': u'KaththiHitsFastest100Cr'}]",133,0
+Tue Nov 04 15:33:11 +0000 2014,BaalaBaalaking,2854255809,tweet['text'],"[{u'indices': [15, 23], u'text': u'Kaththi'}, {u'indices': [105, 129], u'text': u'KaththiHitsFastest100Cr'}]",133,0
+Tue Nov 04 15:32:54 +0000 2014,vm4vijay,2854271099,tweet['text'],"[{u'indices': [15, 23], u'text': u'Kaththi'}, {u'indices': [105, 129], u'text': u'KaththiHitsFastest100Cr'}]",133,0
+Tue Nov 04 15:32:56 +0000 2014,AmmDhanush,2854295782,tweet['text'],"[{u'indices': [15, 23], u'text': u'Kaththi'}, {u'indices': [105, 129], u'text': u'KaththiHitsFastest100Cr'}]",133,0
+Tue Nov 04 15:32:53 +0000 2014,Kristalk4oj2kl5,2854292398,tweet['text'],"[{u'indices': [15, 23], u'text': u'Kaththi'}, {u'indices': [105, 129], u'text': u'KaththiHitsFastest100Cr'}]",133,0
+Mon Nov 03 00:06:00 +0000 2014,CorlWcorl,2590697197,tweet['text'],[],130,0
+Tue Nov 04 15:29:33 +0000 2014,Vijayklr2,2854278256,tweet['text'],"[{u'indices': [78, 94], u'text': u'YennaiArindhaal'}, {u'indices': [96, 103], u'text': u'Lingaa'}, {u'indices': [108, 110], u'text': u'I'}]",64,0
+Sat Nov 01 04:02:36 +0000 2014,DeasonWilliam,2864664830,tweet['text'],[],0,0
+Wed Jan 29 02:48:26 +0000 2014,candaceasalazar,527890954,tweet['text'],[],0,0
+Fri Jun 01 11:59:22 +0000 2012,31Wallace,441261741,tweet['text'],[],0,0
+Thu Oct 16 19:57:10 +0000 2014,LisaKitson,491737137,tweet['text'],[],18,0
+Tue Apr 09 01:56:22 +0000 2013,BettsMcFarren,1301311327,tweet['text'],[],0,0
+Fri Oct 31 01:42:54 +0000 2014,KolbyMeyers,2471130109,tweet['text'],[],19257,0
+Sat Nov 01 00:40:20 +0000 2014,KimPaschke,2170220081,tweet['text'],"[{u'indices': [0, 15], u'text': u'HappyHalloween'}]",0,0
+Sun Jul 13 02:16:20 +0000 2014,MParish8,2265302492,tweet['text'],[],0,0
+Tue Nov 04 16:07:13 +0000 2014,smcbcu00,2834481478,tweet['text'],[],4,0
+Tue Nov 04 02:34:39 +0000 2014,alexnb94,2428909128,tweet['text'],[],0,0
+Sat Apr 20 23:22:09 +0000 2013,MeagonZienty,785190704,tweet['text'],[],0,0
+Fri Oct 31 18:42:01 +0000 2014,COOLDOUGLASRAY,2853586595,tweet['text'],[],0,0
+Tue Oct 28 23:14:16 +0000 2014,c_mouly,174014766,tweet['text'],"[{u'indices': [15, 24], u'text': u'Facebook'}]",0,0
+Tue Nov 04 14:16:56 +0000 2014,angielou8121,2885309070,tweet['text'],"[{u'indices': [0, 10], u'text': u'Farm4Good'}]",0,0
+Tue Nov 04 19:07:32 +0000 2014,rcbenker,533971899,tweet['text'],[],0,0
+Sun Jul 26 16:20:45 +0000 2009,watty611,30245061,tweet['text'],[],0,0
+Fri Oct 31 14:47:17 +0000 2014,thepigeongod,2885184750,tweet['text'],"[{u'indices': [73, 87], u'text': u'AttackOnTitan'}, {u'indices': [88, 105], u'text': u'ShingekiNoKyojin'}]",4,0
+Sat Nov 01 00:05:29 +0000 2014,GfrancoWright,23607484,tweet['text'],"[{u'indices': [68, 75], u'text': u'Pacers'}]",0,0
+Thu Apr 24 15:36:11 +0000 2014,dicksurface,2436462709,tweet['text'],"[{u'indices': [28, 41], u'text': u'myfirstTweet'}]",0,0
+Tue Nov 04 18:39:40 +0000 2014,DonAndClear,2853269093,tweet['text'],"[{u'indices': [42, 53], u'text': u'CommonCore'}]",0,0

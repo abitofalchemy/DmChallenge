@@ -14,7 +14,8 @@ References:
 * http://stackoverflow.com/questions/19432202/twython-get-followers-list
 * http://stackoverflow.com/questions/11439164/storing-json-dictionaries-from-twitter-streaming-api-using-pymongo
 * http://unsupervisedlearning.wordpress.com/2014/07/06/scraping-your-twitter-homepage-with-python-and-mongodb/
-
+* http://nbviewer.ipython.org/github/EnricoGiampieri/EnricoGiampieri.github.io/blob/master/_ipython_notebooks/twitter.ipynb
+	- limits 
 * json
 -- https://freepythontips.wordpress.com/2013/08/08/storing-and-loading-data-with-json/
 
