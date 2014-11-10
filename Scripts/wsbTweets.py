@@ -4,7 +4,7 @@ import itertools
 
 from pprint import pprint
 data = []
-with open('Data/tweets.json') as data_file:
+with open('Data/tweets_from_followers_wsbt_sbt_08Nov14_130417.txt') as data_file:
     for line in data_file:
         json_object = json.loads(line)
         data.append(json_object)
