@@ -1,0 +1,12 @@
+
+*.gz
+
+untrkdData/tweets.send.json
+
+Scripts/.ipynb_checkpoints/Solution+to+Assignment+4-checkpoint.ipynb
+
+Scripts/Solution+to+Assignment+4.ipynb
+
+Scripts/soci_all_aboutit.ipynb
+
+Scripts/.ipynb_checkpoints/soci_allaboutit-checkpoint.ipynb

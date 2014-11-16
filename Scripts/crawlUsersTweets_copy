@@ -10,8 +10,8 @@ import time
 import csv
 import pandas as pd
 import pprint
-from twython import TwythonAuthError, TwythonError
-import random
+from twython import TwythonAuthError
+
 
 APP_KEY     = CONSUMER_KEY = 'knDYepbodjYllFB52VkVXnvJh'
 APP_SECRET  = CONSUMER_SECRET = 'e14U476NypS6rcLOuIZptd1GqcYMieuvFOlZeoaxVLnmTRBzXV'
@@ -37,35 +37,6 @@ for tweet in user_timeline:
     print tweet['text'] + "\n"
 
 """
-
-def tweets_for_random_list(rand_followers_list):
-    ## Set output file
-    ts = time.time()
-    #st = datetime.datetime.fromtimestamp(ts).strftime('%d%b%y_%H%M%S')
-    st = datetime.datetime.fromtimestamp(ts).strftime('%d%b%y')
-    outputFile = 'Data/tweets_from_followers_wsbt_sbt_'+st+'.txt'
-    file = open(outputFile, 'w')
-    
-    inx = 0
-    
-    for scrnName in rand_followers_list:
-        try:
-            user_timeline = twitter.get_user_timeline(screen_name=scrnName, count=2)
-        except TwythonAuthError:
-            continue
-        except TwythonError:
-            continue
-        if user_timeline is not None:
-            for tweet in user_timeline:
-                csv.writer(file).writerow([tweet])
-                inx +=1
-        if inx > 4: break
-
-    print inx
-    file.close()
-    return
-
-
 """
     Tweets by SBT followers 
 """
@@ -119,31 +90,6 @@ def trendind_near_south_bend():
 ##  main
 ###############################################################
 if __name__ == "__main__":
-    followers_wsbt_infile = 'Data/sbtribune_all_followers_screen_names.txt'
-    followers_sbt_infile  = 'Data/wsbt_all_followers_screen_names.txt'
-    
-    with open(followers_wsbt_infile) as f:
-        l1 = f.read().splitlines()
-    with open(followers_sbt_infile) as f:
-        l2 = f.read().splitlines()
+    #tweets_by('Data/wsbt_all_followers_screen_names.txt')
+    tweets_by('Data/sbtribune_all_followers_screen_names.txt')
 
-    mrgList = list(set(l1 + l2))
-
-    ## merge and randomize
-    mylist = []
-    rand_smpl = [ mrgList[i] for i in sorted(random.sample(xrange(len(mrgList)), 160)) ]
-    #print rand_smpl
-
-    tweets_for_random_list(rand_smpl)
-
-###########
-#csv.writer(f).writerow(tweet)
-
-#json.dump(user_timeline,f)
-#csv.writer(f).writerow(json.dump(tweet))
-#sthash.DgniJDHX.dpuf
-#print json.dumps(user_timeline, indent=2)
-#csv.writer(fout).writerow(user_timeline)
-#                for tweet in user_timeline:
-#                    csv.writer(fout).writerow(json.dumps(tweet))
-#                    print inx,':',scrnName
