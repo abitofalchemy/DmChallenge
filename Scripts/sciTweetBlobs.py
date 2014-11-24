@@ -105,7 +105,6 @@ def describe_tweets(input_json_file):
                 k +=1
             else:
                 j +=1
-    
     #print np.size(data)
 #    print k , 'tweets processed'
 #    not_en = (j/(j+k)) * 100.0
@@ -142,7 +141,7 @@ def parse_sci_tweets(input_json_file):
             if jObj.get('lang', None) == 'en':
                 data.append(jObj)
                 k +=1
-    print k , 'tweets processed'
+	print k , 'tweets processed'
     return data
 
 
