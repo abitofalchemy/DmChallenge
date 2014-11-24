@@ -40,11 +40,10 @@ def convert(input):
         return input
 
 def tweets_for_random_list(rand_followers_list):
-    print 'tweets_for_random_list'
     ## Set output file
     ts = time.time()
-    st = datetime.datetime.fromtimestamp(ts).strftime('%d%b%y_%H%M%S')
-    # for dev: st = datetime.datetime.fromtimestamp(ts).strftime('%d%b%y')
+    #st = datetime.datetime.fromtimestamp(ts).strftime('%d%b%y_%H%M%S')
+    st = datetime.datetime.fromtimestamp(ts).strftime('%d%b%y')
     out_file = 'Data/tweets_from_followers_wsbt_sbt_'+st+'.txt'
     
     inx = 0
@@ -53,7 +52,7 @@ def tweets_for_random_list(rand_followers_list):
         
         for scrnName in rand_followers_list:
             try:
-                user_timeline = twitter.get_user_timeline(screen_name=scrnName, count=10)
+                user_timeline = twitter.get_user_timeline(screen_name=scrnName, count=2)
             except TwythonAuthError:
                 continue
             except TwythonError:
@@ -68,13 +67,11 @@ def tweets_for_random_list(rand_followers_list):
             #
             #                csv.writer(file).writerow([tweet])
             #                inx +=1
-            ##if inx > 4: break
+            break ##if inx > 4: break
     
     #    print inx
-    #f.close()
+    f.close()
     return
-
-
 #def tweets_for_random_list(rand_followers_list):
 #    ## Set output file
 #    ts = time.time()
@@ -106,7 +103,39 @@ def tweets_for_random_list(rand_followers_list):
 #    return
 
 
+##---------------------------------------------------------------------
+##  main() function calls
+##---------------------------------------------------------------------
+def main():
+    ## define arrays
+    mylist = []
+    tweets = []
 
+
+    ## Get list of followers for both WSBT & SBT
+    followers_wsbt_infile = 'Data/sbtribune_all_followers_screen_names.txt'
+    followers_sbt_infile  = 'Data/wsbt_all_followers_screen_names.txt'
+    
+    with open(followers_wsbt_infile) as f:
+        l1 = f.read().splitlines()
+    with open(followers_sbt_infile) as f:
+        l2 = f.read().splitlines()
+    
+    ## merge lists
+    mrgList = list(set(l1 + l2))
+
+    ## Random sampling select N random followers
+    rand_smpl = [ mrgList[i] for i in sorted(random.sample(xrange(len(mrgList)), 128)) ]
+
+    ## Get tweets from followers
+    tweets = tweets_for_random_list(rand_smpl)
+
+    print tweets
+    print type(tweets)
+
+
+if __name__ == '__main__':
+    main()
 
 
 
@@ -131,8 +160,6 @@ for tweet in user_timeline:
     Tweets by SBT followers 
 """
 def tweets_by(screen_names_file):
-    print 'tweets_by'
-    
     ## Set output file
     ts = time.time()
     st = datetime.datetime.fromtimestamp(ts).strftime('%d%b%y')
@@ -155,7 +182,7 @@ def tweets_by(screen_names_file):
 #                    print inx,':',scrnName
             inx +=1
 
-#if inx > 170: break
+            if inx > 170: break
 
 ##                    print '%s, %s, %s, %s, %s, %s, %s' % (tweet['created_at'],tweet['user']['screen_name'],tweet['user']['id'], tweet['text'],tweet['entities']['hashtags'], tweet['retweet_count'],tweet['favorite_count'])
 #                    csv.writer(fout).writerow([tweet['created_at'],tweet['user']['screen_name'], \
@@ -163,7 +190,7 @@ def tweets_by(screen_names_file):
 #                                            tweet['entities']['hashtags'], \
 #                                            tweet['retweet_count'],tweet['favorite_count']])
 
-#fout.close()
+    fout.close()
     print inx
     return
 """
@@ -190,35 +217,3 @@ def trendind_near_south_bend():
 #                for tweet in user_timeline:
 #                    csv.writer(fout).writerow(json.dumps(tweet))
 #                    print inx,':',scrnName
-
-##---------------------------------------------------------------------
-##  main() function calls
-##---------------------------------------------------------------------
-def main():
-    ## define arrays
-    mylist = tweets = []
-    
-    ## Get list of followers for both WSBT & SBT
-    followers_wsbt_infile = 'Data/sbtribune_all_followers_screen_names.txt'
-    followers_sbt_infile  = 'Data/wsbt_all_followers_screen_names.txt'
-    
-    with open(followers_wsbt_infile) as f:
-        l1 = f.read().splitlines()
-    with open(followers_sbt_infile) as f:
-        l2 = f.read().splitlines()
-
-    ## merge lists
-    mrgList = list(set(l1 + l2))
-
-    ## Random sampling select N random followers
-    followersAtRandomLst = [ mrgList[i] for i in sorted(random.sample(xrange(len(mrgList)), 128)) ]
-    
-    ## Get tweets from followers
-    tweets = tweets_for_random_list(followersAtRandomLst)
-    
-#    print tweets
-#    print type(tweets)
-    print 'Done'
-
-if __name__ == '__main__':
-    main()
