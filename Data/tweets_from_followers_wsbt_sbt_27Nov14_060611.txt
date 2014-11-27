@@ -1,0 +1,2 @@
+id,created_at,text,retweet_count,ent_urls,ent_hashtags,ent_mentions,favorite_count,in_reply_to_status_id
+442847091635671040,Mon Mar 10 02:19:09 +0000 2014,@TLC Love Theresa! #LongIslandMedium,0,[],"[{u'indices': [19, 36], u'text': u'LongIslandMedium'}]","[{u'id': 21313855, u'indices': [0, 4], u'id_str': u'21313855', u'screen_name': u'TLC', u'name': u'TLC Network'}]",0,

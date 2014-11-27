@@ -83,6 +83,17 @@ from pprint import pprint
 import re
 from pattern.en import parse
 import nltk
+from yaml import load, dump
+
+def convert(input):
+    if isinstance(input, dict):
+        return {convert(key): convert(value) for key, value in input.iteritems()}
+    elif isinstance(input, list):
+        return [convert(element) for element in input]
+    elif isinstance(input, unicode):
+        return input.encode('utf-8')
+    else:
+        return input
 
 def describe_tweets(input_json_file):
     ## count things
@@ -91,8 +102,10 @@ def describe_tweets(input_json_file):
     with open(input_json_file,'r') as jsonFile:
         for tweet in jsonFile:
             jObj = json.loads(tweet)
+            print jObj(')
+            
             ## filter tweets for those that are in English
-            if jObj.get('lang', None) == 'en':
+            if jObj['lang']== 'en':
                 ## pop'n the dictionary
                 twt_stats ={
                     'usr_ment_cnt': len(jObj.get('entities',{}).get('user_mentions', {})),
@@ -101,6 +114,7 @@ def describe_tweets(input_json_file):
                     'rt_cnt'      : jObj.get('retweet_count'),
                     'fv_cnt'      : jObj.get('favorite_count')
                 }
+                pprint.pprint(tw_stats)
                 data.append(twt_stats)
                 k +=1
             else:
@@ -153,35 +167,42 @@ def show_header(cmd_line_args):
 if __name__ == '__main__':
     # header
     show_header(sys.argv)
-
     # gen stats on given tweets
-    stats_list= (describe_tweets('untrkdData/tweets.send.json'))
+    #print sys.argv[1]
+    stats_list= (describe_tweets(sys.argv[1]))
     k = 0
     for dic in stats_list:
         print k, type(dic), dic
         k +=1
-    
-    
-    sys.exit()
 
-    # filer tweets by english
-    cleaned_tweets = parse_sci_tweets('untrkdData/tweets.send.json')
-    
-    
-    # preprocess tweets
-    prproc_tweets = []
-    for tweet in cleaned_tweets:
-        prproc_tweets.append( processTweet(tweet['text']) )
-
-
-    # txt annotated with word types
-    txt_ann = []
-    for clnd_twts in cleaned_tweets:
-        #data = parse(clnd_twts['text'], relation=True, lematta=True)
-        #print data, type(data), np.size(data)
-        tokens = nltk.word_tokenize(clnd_twts['text'])
-        print nltk.pos_tag(tokens)
-        break
-#print txt_ann[:4]
+#    # gen stats on given tweets
+#    stats_list= (describe_tweets('untrkdData/tweets.send.json'))
+#    k = 0
+#    for dic in stats_list:
+#        print k, type(dic), dic
+#        k +=1
+#    
+#    
+#    sys.exit()
+#
+#    # filer tweets by english
+#    cleaned_tweets = parse_sci_tweets('untrkdData/tweets.send.json')
+#    
+#    
+#    # preprocess tweets
+#    prproc_tweets = []
+#    for tweet in cleaned_tweets:
+#        prproc_tweets.append( processTweet(tweet['text']) )
+#
+#
+#    # txt annotated with word types
+#    txt_ann = []
+#    for clnd_twts in cleaned_tweets:
+#        #data = parse(clnd_twts['text'], relation=True, lematta=True)
+#        #print data, type(data), np.size(data)
+#        tokens = nltk.word_tokenize(clnd_twts['text'])
+#        print nltk.pos_tag(tokens)
+#        break
+##print txt_ann[:4]
 
 

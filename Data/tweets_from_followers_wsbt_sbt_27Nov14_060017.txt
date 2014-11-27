@@ -1,0 +1,2 @@
+id,created_at,text,retweet_count,ent_urls,ent_hashtags,ent_mentions,favorite_count,in_reply_to_status_id
+496675019997458433,Tue Aug 05 15:12:07 +0000 2014,"Check out Club Cooee:  It's a new 3D messenger with personal avatars, own  chat rooms, music, videos&amp; games. Love it http://t.co/21ajH6uOrM",0,"[{u'url': u'http://t.co/21ajH6uOrM', u'indices': [121, 143], u'expanded_url': u'http://en.clubcooee.com/signup/s/dde5c3788926', u'display_url': u'en.clubcooee.com/signup/s/dde5c\u2026'}]",[],[],0,

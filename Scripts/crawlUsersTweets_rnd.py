@@ -39,6 +39,27 @@ def convert(input):
     else:
         return input
 
+def parse_to_csv(in_tweet_json):
+    ## count things
+    data = []
+    k = j = 0
+    for tweet in in_tweet_json:
+        ## filter tweets for those that are in English
+        if jObj.get('lang', None) == 'en':
+            ## pop'n the dictionary
+            twt_stats ={
+                'usr_ment_cnt': len(jObj.get('entities',{}).get('user_mentions', {})),
+                'url_cnt'     : len(jObj.get('entities',{}).get('urls',{})),
+                'hstgs_cnt'   : len(jObj.get('entities',{}).get('hashtags',{})),
+                'rt_cnt'      : jObj.get('retweet_count'),
+                'fv_cnt'      : jObj.get('favorite_count')
+            }
+            print (twt_stats)
+            k +=1
+        else:
+            j +=1
+    return data
+
 def tweets_for_random_list(rand_followers_list):
     print 'tweets_for_random_list'
     ## Set output file
@@ -47,10 +68,11 @@ def tweets_for_random_list(rand_followers_list):
     # for dev: st = datetime.datetime.fromtimestamp(ts).strftime('%d%b%y')
     out_file = 'Data/tweets_from_followers_wsbt_sbt_'+st+'.txt'
     
-    inx = 0
+    inx  = 0
+    data = []
     with open(out_file,'w') as f:
         wrt = csv.writer(f)
-        
+        wrt.writerow(["id","created_at","text","retweet_count","ent_urls","ent_hashtags","ent_mentions","favorite_count","in_reply_to_status_id"])
         for scrnName in rand_followers_list:
             try:
                 user_timeline = twitter.get_user_timeline(screen_name=scrnName, count=10)
@@ -60,18 +82,11 @@ def tweets_for_random_list(rand_followers_list):
                 continue
             if user_timeline is not None:
                 for tweet in user_timeline:
-                    #print tweet
-                    wrt.writerow([tweet])
-            #()
-            #json_output = ast.literal_eval(json.dumps(user_timeline)) #[s.encode('utf-8') for s in user_timeline]
-            #pprint.pprint (json_output)
-            #
-            #                csv.writer(file).writerow([tweet])
-            #                inx +=1
-            ##if inx > 4: break
-    
-    #    print inx
-    #f.close()
+                   parsed_tweet_arr = [tweet['id'],tweet['created_at'],tweet['text'].encode('utf-8'),tweet['retweet_count'],tweet['entities']['urls'], tweet['entities']['hashtags'], tweet['entities']['user_mentions'], tweet['favorite_count'],tweet['in_reply_to_status_id']];
+                   wrt.writerow(parsed_tweet_arr) # raw data
+            
+            
+
     return
 
 
