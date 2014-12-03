@@ -75,7 +75,7 @@
 ################################################################################
 from __future__ import division
 import sys
-import json
+import json, ast, pickle
 import pandas as pd
 import numpy as np
 import itertools
@@ -201,7 +201,33 @@ def describe_users(input_json_file):
 	
     return
 
+def describe_timelines(in_csv_file):
+    my_data = json.loads(open(in_csv_file).read())
+    twt_data = []
+    urls_sum = 0
+    for jObj in my_data:
+        urls_sum += len(jObj[0]['entities']['urls'])
+        for jUrl in jObj[0]['entities']['urls']:
+            twt_data.append([jUrl['url'], jUrl['expanded_url']])
+        
+#        twt_data.append(jObj[0]['entities']['urls'])
+#        twt_stats ={
+#            'usr_ment_cnt': len(jObj[0].get('entities',{}).get('user_mentions', {})),
+#            'url_cnt'     : len(jObj[0].get('entities',{}).get('urls',{})),
+#            'hstgs_cnt'   : len(jObj[0].get('entities',{}).get('hashtags',{})),
+#            'rt_cnt'      : jObj[0].get('retweet_count'),
+#            'fv_cnt'      : jObj[0].get('favorite_count')
+#        }
 
+    df = pd.DataFrame(twt_data,columns=['url','extended_url'])
+    print df.head()
+    df.to_csv(in_csv_file+".urls",sep=',',mode='w',encoding='utf-8',index=False)
+
+    ## describe
+    print '\n# of urls: ',urls_sum
+    print 'Percent of tweets with urls: %.2f' % (urls_sum/len(my_data) * 100)
+
+    return
 
 def describe_tweets(input_json_file):
     ## count things
@@ -276,8 +302,10 @@ if __name__ == '__main__':
 	show_header(sys.argv)
     
 	# list most prolific tweeters
-	describe_users('Data_Schurz/tweets.json')
+    #describe_users('Data_Schurz/tweets.json')
 
+    # list stats on the wsbt/sbtribune
+	describe_timelines("Data/sbtribune_raw_tweets_1.csv")
 
 
 

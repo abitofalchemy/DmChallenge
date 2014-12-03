@@ -7,7 +7,7 @@ Created on Mon Dec  1 14:01:29 2014
 from newspaper import Article
 
 import pickle
-fpath="/Users/aastha/Desktop/Semester3/Data Mining/CourseProject/Data/FinalData/URL_list_full.txt"
+fpath="Data/wsbt_raw_tweets_1.csv.urls"
 with open(fpath, 'rb') as f:
     urls = pickle.load(f)
     
@@ -27,7 +27,7 @@ for i in range(len(urls)):
     documents.append(tweet_data)
     print "************************"
 
-fpath="/Users/aastha/Desktop/Semester3/Data Mining/CourseProject/Data/FinalData/DocumentCorpus.txt"
+fpath="Data/DocumentCorpus.txt"
 with open(fpath, 'wb') as f:
     pickle.dump(documents, f)
 
