@@ -84,6 +84,21 @@ import re
 from pattern.en import parse
 import nltk
 from yaml import load, dump
+from pprint import pprint
+from twython import Twython
+from twython import TwythonAuthError, TwythonError
+import math
+import time
+
+APP_KEY     = CONSUMER_KEY    = 'knDYepbodjYllFB52VkVXnvJh'
+APP_SECRET  = CONSUMER_SECRET = 'e14U476NypS6rcLOuIZptd1GqcYMieuvFOlZeoaxVLnmTRBzXV'
+OAUTH_TOKEN = '354043186-Mk8Unrssg6CfhLknqZrQr0Y3BkJWJzlChINKwP5n'
+OAUTH_TOKEN_SECRET = '8Tgmu7lBl781DRccVMcjzyCBVwhJB2AQpvTAggVIafzDK'
+
+twitter = Twython(APP_KEY, APP_SECRET,
+                  OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
+
+################################################################################
 
 def convert(input):
     if isinstance(input, dict):
@@ -95,6 +110,99 @@ def convert(input):
     else:
         return input
 
+def getFollowers(user_screen_name):
+    suser = twitter.show_user(screen_name=user_screen_name)
+    fnum = 200
+    pnum = int(math.ceil(float(suser["followers_count"]) / fnum))
+
+    user_followers  =[]
+    pages = []
+    for i in range(pnum):
+        pages.append("p"+str(i+1))
+
+    oldpages = []
+    for i in range(pnum):
+        oldpages.append("p"+str(i))
+
+    p0 = { "next_cursor": -1 } # So the following exec() call doesn't fail.
+
+    for i in range(pnum):
+        exec(pages[i]+" = twitter.get_followers_list(screen_name=user_screen_name, count=fnum, skip_status=1, cursor="+oldpages[i]+"['next_cursor'])")
+
+    followers = []
+
+    for p in range(pnum):
+        try:
+            exec("for i in range(fnum): followers.append("+pages[p]+"['users'][i])")
+        except(IndexError):
+            pass
+
+    print(len(followers))
+
+
+    for x in followers:
+#        print("""Name:  %s
+#            Username:  %s
+#            """ % (x["name"], x["screen_name"]))
+        user_followers.append([user_screen_name,x["name"], x["screen_name"],x["location"]])
+
+    ## convert to data frame
+    user_followers_df = pd.DataFrame(user_followers,
+                                     columns = ["prolific_user","f_name","f_screen_name", "f_location"])
+    user_followers_df.to_csv("Data/prolific_tweeters.followers.csv", sep=',',mode="a", header=False,
+                                 encoding='utf-8',index=False)
+    return
+
+
+def describe_users(input_json_file):
+    """
+        this code is used to get the list of most prolific users for wsbt/sbt
+    """
+    data = []
+    k = j = 0
+    ##
+    proc_prol_users_lst = []
+    
+    with open ("Data/prolific_tweeters.followers.csv","r") as f_file:
+        last = ""
+        f_file.readline()
+        for line in f_file:
+            new = line.split(",")[0]
+            if (new == last):
+                continue
+            else:
+                last = new
+                proc_prol_users_lst.append(new)
+
+    with open(input_json_file,'r') as jsonFile:
+        for tweet in jsonFile:
+            jObj = json.loads(tweet)
+			#pprint(jObj)
+            if (jObj.get('user',None) is not None):
+                if (jObj['user']['screen_name'] in proc_prol_users_lst):
+                    continue
+                else:
+                    ## Get these user's followers and friends
+                    getFollowers(jObj['user']['screen_name'])
+                    time.sleep(60)
+                    data.append([jObj['user']['screen_name'],
+                                 jObj['user']['id_str'], 
+                                 jObj['user']['friends_count'], 
+                                 jObj['user']['followers_count'],
+                                 jObj['user']['location']])
+    
+    
+    ## convert to data frame
+    df = pd.DataFrame(data, columns = ["user_screen_name","user_id","friends_count",
+                                       "followers_count", "userLocation"])
+    print df.head()
+    df.to_csv("Data/prolific_tweeters.csv", sep=',',mode='w',encoding='utf-8',index=False)
+    
+	
+    return
+
+
+
 def describe_tweets(input_json_file):
     ## count things
     data = []
@@ -102,7 +210,6 @@ def describe_tweets(input_json_file):
     with open(input_json_file,'r') as jsonFile:
         for tweet in jsonFile:
             jObj = json.loads(tweet)
-            print jObj(')
             
             ## filter tweets for those that are in English
             if jObj['lang']== 'en':
@@ -165,44 +272,14 @@ def show_header(cmd_line_args):
     return
 
 if __name__ == '__main__':
-    # header
-    show_header(sys.argv)
-    # gen stats on given tweets
-    #print sys.argv[1]
-    stats_list= (describe_tweets(sys.argv[1]))
-    k = 0
-    for dic in stats_list:
-        print k, type(dic), dic
-        k +=1
+	# header
+	show_header(sys.argv)
+    
+	# list most prolific tweeters
+	describe_users('Data_Schurz/tweets.json')
 
-#    # gen stats on given tweets
-#    stats_list= (describe_tweets('untrkdData/tweets.send.json'))
-#    k = 0
-#    for dic in stats_list:
-#        print k, type(dic), dic
-#        k +=1
-#    
-#    
-#    sys.exit()
-#
-#    # filer tweets by english
-#    cleaned_tweets = parse_sci_tweets('untrkdData/tweets.send.json')
-#    
-#    
-#    # preprocess tweets
-#    prproc_tweets = []
-#    for tweet in cleaned_tweets:
-#        prproc_tweets.append( processTweet(tweet['text']) )
-#
-#
-#    # txt annotated with word types
-#    txt_ann = []
-#    for clnd_twts in cleaned_tweets:
-#        #data = parse(clnd_twts['text'], relation=True, lematta=True)
-#        #print data, type(data), np.size(data)
-#        tokens = nltk.word_tokenize(clnd_twts['text'])
-#        print nltk.pos_tag(tokens)
-#        break
-##print txt_ann[:4]
+
+
+
 
 

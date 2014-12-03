@@ -2,6 +2,7 @@ from twython import Twython
 import time
 import csv
 import pandas as pd
+from pprint import pprint
 
 APP_KEY     = CONSUMER_KEY = 'knDYepbodjYllFB52VkVXnvJh'
 APP_SECRET  = CONSUMER_SECRET = 'e14U476NypS6rcLOuIZptd1GqcYMieuvFOlZeoaxVLnmTRBzXV'
@@ -12,21 +13,39 @@ twitter = Twython(APP_KEY, APP_SECRET,
                   OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
 
-next_cursor=-1
-df = pd.DataFrame(columns=['screen_name'])
-inx = 0
-while(next_cursor):
-	search = twitter.get_followers_list(screen_name='SBTribune',count=200,cursor=next_cursor)
-	for result in search['users']:
-        #time_zone =result['time_zone'] if result['time_zone'] != None else "N/A"
-		#print result["screen_name"].encode('utf-8')
-		df.loc[inx]= result["screen_name"].encode('utf-8')
-		inx +=1
-	next_cursor = search["next_cursor"]
-	time.sleep(60)
-	print 'inx:', inx
-print df.head()
-df.to_csv('out_file.txt', sep=',',mode='w',encoding='utf-8',index=False)
+############################################################################
+
+user_timeline = twitter.get_user_timeline(screen_name='WSBT', count=1,include_rts=False)
+last_post_id = user_timeline[0]['id']
+post_id = 0
+cnt = 50
+tweet_data = []
+while (cnt >1):
+    print last_post_id
+    user_timeline = twitter.get_user_timeline(screen_name='WSBT', max_id=last_post_id, count=200,include_rts=False)
+    for tweet in user_timeline:
+        tweet_data.append([tweet])
+    post_id = [x['id'] for x in user_timeline]
+    last_post_id = post_id[len(post_id)-1]
+    cnt -= 1
+    time.sleep(60)
+
+df  = pd.DataFrame(tweet_data) #("Data/sbtribune_raw_tweets.csv") as cache_file:
+#print df.head()
+df.to_csv("Data/wsbt_raw_tweets.csv", sep=',',mode='a',encoding='utf-8',index=False, header=False)
+
+
+
+#time.sleep(60)
+
+#print df.head()
+#df.to_csv('out_file.txt', sep=',',mode='w',encoding='utf-8',index=False)
 #print(twitter.get_followers_list()['ids'])
+#for result in search['users']:
+#    #time_zone =result['time_zone'] if result['time_zone'] != None else "N/A"
+#    #print result["screen_name"].encode('utf-8')
+#    df.loc[inx]= result["screen_name"].encode('utf-8')
+#        inx +=1
+#        next_cursor = search["next_cursor"]
 
 
