@@ -14,8 +14,8 @@ import datetime
 import time
 #import itertools
 import csv
-#import pandas as pd
-import pprint
+import pandas as pd
+from pprint import pprint
 
 from twython import Twython
 from twython import TwythonAuthError, TwythonError
@@ -205,6 +205,33 @@ def trendind_near_south_bend():
 #                for tweet in user_timeline:
 #                    csv.writer(fout).writerow(json.dumps(tweet))
 #                    print inx,':',scrnName
+#from twython import TwythonError, TwythonAuthError, TwythonRateLimitError
+
+def getTweetUser(sys_argv):
+    data = []
+    with open(sys_argv+'.userids','a') as fout:
+        wrt = csv.writer(fout)
+    
+    with open(sys_argv, 'r') as f:
+        f.readline()
+        for line in f:
+            print line.split(",")[0]
+            try:
+                tmpStr= twitter.show_status(id=line.split(",")[0],trim_user=True,include_entities=True)
+            except TwythonAuthError:
+                
+                continue
+            except TwythonError:
+                continue
+        
+                #pprint (tmpStr)
+            if (tmpStr.get("id",None)):
+                #data.append([tmpStr['id'], tmpStr['user']['id'],tmpStr['text']])
+                wrt.writerow([tmpStr['id'], tmpStr['user']['id'],tmpStr['text'].encode('utf-8')])
+
+    
+    
+    return
 
 ##---------------------------------------------------------------------
 ##  main() function calls
@@ -236,4 +263,6 @@ def main():
     print 'Done'
 
 if __name__ == '__main__':
-    main()
+    #main()
+    getTweetUser(sys.argv[1])
+

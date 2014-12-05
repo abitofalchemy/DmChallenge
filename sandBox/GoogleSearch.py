@@ -13,10 +13,10 @@ import simplejson
 # user's IP address. Doing so will help distinguish this legitimate
 # server-side traffic from traffic which doesn't come from an end-user.
 
-query="Ebola%20Virus"
+query="Ebola Virus"
 
 url = ('https://ajax.googleapis.com/ajax/services/search/web'
-       '?v=1.0&q=%s&userip=USERS-IP-ADDRESS' % query)
+       '?v=1.0&q=Paris%20Hilton&userip=USERS-IP-ADDRESS')
 
 request = urllib2.Request(url, None)
 response = urllib2.urlopen(request)
@@ -24,4 +24,3 @@ response = urllib2.urlopen(request)
 # Process the JSON string.
 results = simplejson.load(response)
 # now have some fun with the results...
-print simplejson.dumps(results, indent=2)

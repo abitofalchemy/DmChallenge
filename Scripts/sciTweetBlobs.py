@@ -201,6 +201,16 @@ def describe_users(input_json_file):
 	
     return
 
+def quick_stats(in_csv_file):
+    my_data = json.loads(open(in_csv_file).read())
+    print "len(my_data)",len(my_data)
+#    twt_data = []
+#    urls_sum = 0
+#    for jObj in my_data:
+#        urls_sum += len(jObj[0]['entities']['urls'])
+#        for jUrl in jObj[0]['entities']['urls']:
+    return
+
 def describe_timelines(in_csv_file):
     my_data = json.loads(open(in_csv_file).read())
     twt_data = []
@@ -238,7 +248,7 @@ def describe_tweets(input_json_file):
             jObj = json.loads(tweet)
             
             ## filter tweets for those that are in English
-            if jObj['lang']== 'en':
+            if jObj[0]['lang']== 'en':
                 ## pop'n the dictionary
                 twt_stats ={
                     'usr_ment_cnt': len(jObj.get('entities',{}).get('user_mentions', {})),
@@ -253,9 +263,9 @@ def describe_tweets(input_json_file):
             else:
                 j +=1
     #print np.size(data)
-#    print k , 'tweets processed'
-#    not_en = (j/(j+k)) * 100.0
-#    print '%.2f percent of tweets are not English' % (not_en)
+    print k , 'tweets processed'
+    not_en = (j/(j+k)) * 100.0
+    print '%.2f percent of tweets are not English' % (not_en)
     return data
 
 #start process_tweet
@@ -305,9 +315,9 @@ if __name__ == '__main__':
     #describe_users('Data_Schurz/tweets.json')
 
     # list stats on the wsbt/sbtribune
-	describe_timelines("Data/sbtribune_raw_tweets_1.csv")
-
-
+    #describe_timelines("Data/sbtribune_raw_tweets_1.csv")
+	quick_stats("Data/sbtribune_raw_tweets_1.csv")
+	quick_stats("Data/wsbt_raw_tweets_1.csv")
 
 
 
