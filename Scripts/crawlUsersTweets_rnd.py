@@ -1,3 +1,4 @@
+#!/usr/local/bin/python
 ##---------------------------------------------------------------------
 ##  References:
 ##  -----------
@@ -16,7 +17,7 @@ import time
 import csv
 import pandas as pd
 from pprint import pprint
-
+import re
 from twython import Twython
 from twython import TwythonAuthError, TwythonError
 
@@ -209,25 +210,26 @@ def trendind_near_south_bend():
 
 def getTweetUser(sys_argv):
     data = []
-    with open(sys_argv+'.userids','a') as fout:
-        wrt = csv.writer(fout)
+    
     
     with open(sys_argv, 'r') as f:
-        f.readline()
-        for line in f:
-            print line.split(",")[0]
-            try:
-                tmpStr= twitter.show_status(id=line.split(",")[0],trim_user=True,include_entities=True)
-            except TwythonAuthError:
-                
-                continue
-            except TwythonError:
-                continue
-        
-                #pprint (tmpStr)
-            if (tmpStr.get("id",None)):
-                #data.append([tmpStr['id'], tmpStr['user']['id'],tmpStr['text']])
-                wrt.writerow([tmpStr['id'], tmpStr['user']['id'],tmpStr['text'].encode('utf-8')])
+        with open(sys_argv+'.userids','a') as fout:
+            wrt = csv.writer(fout)
+            f.readline()
+            for line in f:
+                token = line.split(",")[0]
+                try:
+                    tmpStr= twitter.show_status(id=token,trim_user=True,include_entities=True)
+                except TwythonAuthError:
+                    
+                    continue
+                except TwythonError:
+                    continue
+            
+                    #pprint (tmpStr)
+                if (tmpStr.get("id",None)):
+                    #data.append([tmpStr['id'], tmpStr['user']['id'],tmpStr['text']])
+                    wrt.writerow([tmpStr['id'], tmpStr['user']['id'],tmpStr['text'].encode('utf-8')])
 
     
     
