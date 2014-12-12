@@ -16,6 +16,7 @@
 
 ## Classification
 
+<<<<<<< Updated upstream
 
 
 
@@ -123,3 +124,106 @@ plt.xticks(())
 plt.yticks(())
 
 plt.show()
+=======
+# In[ ]:
+
+import pandas as pd
+
+cds_df_train=pd.read_csv('class_challenge_train.csv')
+#print cds_df_train.head()
+
+cds_df_test=pd.read_csv('class_challenge_test.csv')
+
+traindata_cds=cds_df_train.drop('class',1)
+trainlabel_cds=cds_df_train['class']
+#print traindata_cds.head()
+#print trainlabel_cds.head()
+
+testdata_cds=cds_df_test.drop('class',1)
+testlabel_cds=cds_df_test['class']
+
+from sklearn import svm
+#from sklearn import cross_validation
+clf = svm.SVC(kernel='linear',C=1)
+#clf = svm.SVC()
+#scores = cross_validation.cross_val_score(clf, traindata_cds, trainlabel_cds, cv=10)
+#print scores.mean()
+#print "Standard deviation", scores.std()
+
+clf.fit(traindata_cds, trainlabel_cds)
+
+cds_yhat=clf.predict(testdata_cds)
+print cds_yhat
+
+#### Decision Trees
+from sklearn import tree
+clf = tree.DecisionTreeClassifier()
+clf = clf.fit(traindata_cds, trainlabel_cds)
+cds_yhat=clf.predict(testdata_cds)
+print cds_yhat
+
+## Regression
+
+# In[19]:
+
+rds_df_train=pd.read_csv('reg_challenge_train.csv')
+#print cds_df_train.head()
+
+rds_df_test=pd.read_csv('reg_challenge_test.csv')
+
+traindata_rds=rds_df_train.drop('target',1)
+trainlabel_rds=rds_df_train['target']
+#print traindata_cds.head()
+#print trainlabel_cds.head()
+
+testdata_rds=rds_df_test.drop('target',1)
+testlabel_rds=rds_df_test['target']
+
+from sklearn import linear_model
+
+# Create linear regression object
+regr = linear_model.LinearRegression()
+
+# Train the model using the training sets
+regr.fit(traindata_rds, trainlabel_rds)
+
+
+
+# We can directly read the data in dataframe format using pandas...I used that...from my understanding of the code below you wanted to read the file..right? did i miss something?
+
+# In[19]:
+
+import pandas as pd
+
+# read the classification dataset
+with open("class_challenge_train.csv","rb") as inFile:
+    in_data_0 = []
+    #cols = inFile.readline().rstrip("\r\n")
+    #print cols
+    for line in inFile:
+        in_data_0.append(line.rstrip("\r\n"))
+# convert to dataframe
+cds_df = pd.DataFrame(in_data_0) 
+print cds_df.head()
+
+# read the regression training data
+with open("reg_challenge_train.csv","rb") as inFile:
+    in_data_0 = []
+    #cols = inFile.readline().rstrip("\r\n")
+    #print cols
+    for line in inFile:
+        in_data_0.append(line.rstrip("\r\n"))
+# convert to dataframe
+rds_df = pd.DataFrame(in_data_0) 
+print rds_df.head()
+    
+
+
+# Predictions on the Testing Set
+# ------------------------------
+
+# In[ ]:
+
+
+
+>>>>>>> Stashed changes
