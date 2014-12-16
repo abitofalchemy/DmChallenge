@@ -8,11 +8,11 @@ from __future__ import division
 import pandas as pd
 
 print "reading data"
-cds_df_train=pd.read_csv('reg_challenge_train.csv')
-cds_df_test=pd.read_csv('reg_challenge_test.csv')
+cds_df_train=pd.read_csv('../class_challenge_train.csv')
+cds_df_test=pd.read_csv('../class_challenge_test.csv')
 
-traindata_cds=cds_df_train.drop('target',1)
-trainlabel_cds=cds_df_train['target']
+traindata_cds=cds_df_train.drop('class',1)
+trainlabel_cds=cds_df_train['class']
 #print traindata_cds.head()
 #print trainlabel_cds.head()
 

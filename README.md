@@ -1,8 +1,13 @@
 DmChallenge
 ===========
 
-SCI Challenge Project
+iPython Notebook (Mac OS)
+-------------------------
+* ipython notebook --pylab inline
 
+
+SCI Challenge Project
+---------------------
 
 * Working with Python Twitter and 
 * Testing out Twython
