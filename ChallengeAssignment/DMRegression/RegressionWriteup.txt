@@ -1,9 +1,0 @@
-Regression
-In this assignment, we tried the following regression methods:
-- Linear regression
-- Logistic regression
-
-
-For validation purposes, we chose 10 fold cross validation. We performed stratified sampling while performing cross validation because the data is clustered and unbalanced
-
-The performance, although slow, the logistic regression was most appropriate.

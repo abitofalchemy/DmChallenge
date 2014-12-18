@@ -22,3 +22,5 @@ Docs/SchurzChallenge.key
 *.mov
 
 *.key
+
+Data/tweets.send.json

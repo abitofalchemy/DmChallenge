@@ -1,12 +1,30 @@
-DmChallenge
-===========
+Social Topic Analyzer
+=====================
+
+Data Mining
+Fall 2014 - CSE 40647/60647
+
+Project Team
+------------
+
+* Salvador Aguinaga
+* Aastha Nigam
+
+Folder Contents
+---------------
+
+* Docs- Final project report and PPT Presenteation 
+* Data - Datasets used
+* Scripts - Source code
+
+
 
 iPython Notebook (Mac OS)
 -------------------------
 * ipython notebook --pylab inline
 
 
-SCI Challenge Project
+Project Notes
 ---------------------
 
 * Working with Python Twitter and 

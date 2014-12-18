@@ -5,6 +5,12 @@
 
 
 # http://nbviewer.ipython.org/github/herrfz/dataanalysis/blob/master/week3/exploratory_graphs.ipynb
+#
+# http://sebastianraschka.com/Articles/2014_twitter_wordcloud.html
+#
+# http://ravikiranj.net/drupal/201205/code/machine-learning/how-build-twitter-sentiment-analyzer
+# https://pypi.python.org/pypi/textblob
+
 #   CURRENTLY UNUSED CODE
 ################################################################################
 #	pprint(dat_json)
@@ -28,9 +34,7 @@
 #print k,v
 
 ##
-# http://ravikiranj.net/drupal/201205/code/machine-learning/how-build-twitter-sentiment-analyzer
-# https://pypi.python.org/pypi/textblob
-# http://nbviewer.ipython.org/github/herrfz/dataanalysis/blob/master/week3/exploratory_graphs.ipynb
+
 
 #
 #                json_object = json.loads(line)
@@ -94,6 +98,7 @@ from twython import Twython
 from twython import TwythonAuthError, TwythonError
 import math
 import time
+from string import punctuation
 
 def clean_tweets(input_json_file):
     out_file = input_json_file.rstrip(".csv")+".cln.csv"
@@ -188,6 +193,10 @@ def processTweet(tweet):
     tweet = re.sub(r'#([^\s]+)', r'\1', tweet)
     #trim
     tweet = tweet.strip('\'"')
+    #Remove puctuation
+    for p in list(punctuation):
+        tweet=tweet.replace(p,'')
+    
     return tweet
 #end
 
@@ -214,6 +223,20 @@ def parse_sci_tweets(input_json_file):
 	print k , 'English tweets processed'
     return data
 
+def enhance_using_url(sUrl):
+    a = Article(sUrl, language='en')
+    a.download()
+    a.parse()
+    url_augmented_tweet = ""
+    #print "Ehriched tweet:\n"+(min_tweet_dict[rawTweet][1]+","+a.text)
+    try:
+        url_augmented_tweet= "%s, %s"%(min_tweet_dict[rawTweet][1].decode("utf-8"), a.title.decode("utf-8"))
+    except:
+        print cnt
+        print min_tweet_dict[rawTweet][1],a.title
+        url_augmented_tweet = min_tweet_dict[rawTweet][1].decode("utf-8")
+    return url_augmented_tweet
+
 
 def show_header(cmd_line_args):
     print cmd_line_args
@@ -233,25 +256,54 @@ if __name__ == '__main__':
 
     ## Get enginlish tweets parsed
     tweets_dict = parse_sci_tweets(args.input_file)
+    
     ## Filter tweets (trim the tweet)
     filt_t_dict = filter_tweets(tweets_dict)
 
-    ## Get tweets with urls
+    ## initialize variables
     min_tweet_dict = dict()
-    for tweet in filt_t_dict:
-        tstStr = getTweetsWithUrls(filt_t_dict[tweet][0])
-        if (tstStr) is not None:
-            min_tweet_dict[tweet] =  [tstStr,filt_t_dict[tweet][0]] #(getTweetsWithUrls(filt_t_dict[tweet][0])
-    ## Further Cleaning/Enhancing the orig tweets
-    for urlTweet in min_tweet_dict:
-        url = min_tweet_dict[urlTweet][0]
-        print min_tweet_dict[urlTweet][1]
-        a = Article(url, language='en')
-        a.download()
-        a.parse()
-        #print "Ehriched tweet:\n"+(min_tweet_dict[urlTweet][1]+","+a.text)
-        url_augmented_tweet= min_tweet_dict[urlTweet][1]+","+a.text
-        print processTweet(url_augmented_tweet)
-#break
+    enhanced_cleaned_tw_lst = []
+    boolTweetsWithUrls = False
 
+    if boolTweetsWithUrls:
+        ## Get tweets with urls
+        for tweet in filt_t_dict:
+            tstStr = getTweetsWithUrls(filt_t_dict[tweet][0])
+            if (tstStr) is not None:
+                min_tweet_dict[tweet] =  [tstStr,filt_t_dict[tweet][0]] #(getTweetsWithUrls(filt_t_dict[tweet][0])
+        print "tweets filtered: %d" % len(min_tweet_dict)
+    else:
+        min_tweet_dict = filt_t_dict
+    print "tweets to start with : %d" % len(min_tweet_dict)
+
+
+
+    ## Further Cleaning/Enhancing the orig tweets
+    cnt = 0
+
+    print "Further Cleaning/Enhancing the orig tweets"
+    for rawTweet in min_tweet_dict:
+        extra_text = ""
+        #print min_tweet_dict[rawTweet][0]
+        if min_tweet_dict[rawTweet][len(min_tweet_dict[rawTweet])-1]:
+            # url has urls
+            for urlDict in min_tweet_dict[rawTweet][len(min_tweet_dict[rawTweet])-1]:
+                #print urlDict['expanded_url']
+                extra_text = extra_text + enhance_using_url(urlDict['expanded_url'])
+            enhanced_cleaned_tw_lst.append("%s, %s" % (min_tweet_dict[rawTweet][0].decode("utf-8"), extra_text))
+        else:
+            #print "does not have urls\n", min_tweet_dict[rawTweet][0]
+            enhanced_cleaned_tw_lst.append(processTweet(min_tweet_dict[rawTweet][0]))
+
+
+    print "Generated %d enhanced/cleaned tweets" % len(enhanced_cleaned_tw_lst)
+    print enhanced_cleaned_tw_lst[:3]
+#
+#    for sentence in enhanced_cleaned_tw_lst:
+#        tokens = nltk.word_tokenize(sentence)
+#        tagged = nltk.pos_tag(tokens)
+#        ## identify the named entities:
+#        entities = nltk.chunk.ne_chunk (tagged)
+#        print entities
+#        break
 
