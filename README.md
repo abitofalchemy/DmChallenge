@@ -26,7 +26,7 @@ iPython Notebook (Mac OS)
 
 Project Notes
 ---------------------
-
+* Workin on Scripts/Salvador/D_GetTweetsWithUrls.py Data/toy.json
 * Working with Python Twitter and 
 * Testing out Twython
 * Working with twython to get all users of wsbt in a loop that waits to collect more info in x amount of time intervals
@@ -44,3 +44,5 @@ References:
 
 * Visualization
 -- https://www.zotero.org/jwbaker/items/BPHDT5GT?fullsite=0
+
+

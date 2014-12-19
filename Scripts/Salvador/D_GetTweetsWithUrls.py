@@ -230,11 +230,14 @@ def enhance_using_url(sUrl):
     url_augmented_tweet = ""
     #print "Ehriched tweet:\n"+(min_tweet_dict[rawTweet][1]+","+a.text)
     try:
-        url_augmented_tweet= "%s, %s"%(min_tweet_dict[rawTweet][1].decode("utf-8"), a.title.decode("utf-8"))
+        url_augmented_tweet= "%s, %s"%(min_tweet_dict[rawTweet][0].decode("utf-8"), a.title.decode("utf-8"))
     except:
         print cnt
         print min_tweet_dict[rawTweet][1],a.title
-        url_augmented_tweet = min_tweet_dict[rawTweet][1].decode("utf-8")
+        url_augmented_tweet = min_tweet_dict[rawTweet][0].decode("utf-8")
+
+#pprint (url_augmented_tweet)
+
     return url_augmented_tweet
 
 
@@ -290,6 +293,7 @@ if __name__ == '__main__':
             for urlDict in min_tweet_dict[rawTweet][len(min_tweet_dict[rawTweet])-1]:
                 #print urlDict['expanded_url']
                 extra_text = extra_text + enhance_using_url(urlDict['expanded_url'])
+            #print extra_text
             enhanced_cleaned_tw_lst.append("%s, %s" % (min_tweet_dict[rawTweet][0].decode("utf-8"), extra_text))
         else:
             #print "does not have urls\n", min_tweet_dict[rawTweet][0]
@@ -298,9 +302,17 @@ if __name__ == '__main__':
 
     print "Generated %d enhanced/cleaned tweets" % len(enhanced_cleaned_tw_lst)
     print enhanced_cleaned_tw_lst[:3]
-#
-#    for sentence in enhanced_cleaned_tw_lst:
-#        tokens = nltk.word_tokenize(sentence)
+
+##  At this point, we can further clean the tweets from their puctuations, but I might
+##  want to handle hashtags in a special way
+
+    document = []
+    for sentence in enhanced_cleaned_tw_lst:
+        document.append( nltk.word_tokenize(sentence))
+    fdist1 = nltk.FreqDist(document)
+    #print document
+    pprint( fdist1.most_common(20))
+
 #        tagged = nltk.pos_tag(tokens)
 #        ## identify the named entities:
 #        entities = nltk.chunk.ne_chunk (tagged)
