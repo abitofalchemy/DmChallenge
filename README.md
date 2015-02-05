@@ -33,6 +33,7 @@ Project Notes
 
 References:
 -----------
+* http://social-metrics.org/python-tutorial-1/
 * http://heuristically.wordpress.com/2011/04/08/text-data-mining-twitter-r/
 * http://stackoverflow.com/questions/19432202/twython-get-followers-list
 * http://stackoverflow.com/questions/11439164/storing-json-dictionaries-from-twitter-streaming-api-using-pymongo
